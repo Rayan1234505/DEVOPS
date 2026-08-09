@@ -3,15 +3,9 @@ pipeline {
 
     stages {
 
-        stage('Clone Repository') {
-            steps {
-                git 'https://github.com/Rayan1234505/DEVOPS.git'
-            }
-        }
-
         stage('Check Java and Maven') {
             steps {
-                sh '''
+                bat '''
                     java -version
                     mvn -version
                 '''
@@ -20,13 +14,13 @@ pipeline {
 
         stage('Build with Maven') {
             steps {
-                sh 'mvn clean package'
+                bat 'mvn clean package'
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh 'mvn test'
+                bat 'mvn test'
             }
         }
     }
