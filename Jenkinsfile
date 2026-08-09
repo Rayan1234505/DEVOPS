@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        jdk 'JDK'
-        maven 'Maven'
-    }
-
     stages {
 
         stage('Clone Repository') {
@@ -14,11 +9,12 @@ pipeline {
             }
         }
 
-        stage('Check Files') {
+        stage('Check Java and Maven') {
             steps {
-                sh 'ls -la'
-                sh 'java -version'
-                sh 'mvn -version'
+                sh '''
+                    java -version
+                    mvn -version
+                '''
             }
         }
 
@@ -28,7 +24,7 @@ pipeline {
             }
         }
 
-        stage('Run Test') {
+        stage('Run Tests') {
             steps {
                 sh 'mvn test'
             }
@@ -39,8 +35,9 @@ pipeline {
         success {
             echo 'Maven build completed successfully!'
         }
+
         failure {
-            echo 'Maven build failed.'
+            echo 'Maven build failed!'
         }
     }
 }
